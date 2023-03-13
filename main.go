@@ -37,13 +37,13 @@ func main() {
 
 	subscription := pubsubClient.Subscription(getEnv("SUBSCRIPTION"))
 
-	subErr := subscription.Receive(context.Background(), func(ctx context.Context, m *pubsub.Message) {
+	err = subscription.Receive(ctx, func(ctx context.Context, m *pubsub.Message) {
 		customLoggerInfo.Printf("Received message: %s", m.PublishTime)
 		m.Ack()
 	})
 
-	if subErr != nil {
-		customLoggerError.Printf("Error: subscription.Receive: %v", subErr)
+	if err != nil {
+		customLoggerError.Printf("Error: subscription.Receive: %v", err)
 	}
 }
 
